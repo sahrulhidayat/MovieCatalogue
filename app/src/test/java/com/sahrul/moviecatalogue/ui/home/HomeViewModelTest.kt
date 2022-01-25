@@ -57,10 +57,10 @@ class HomeViewModelTest {
         movies.value = dummyMovies
 
         `when`(repository.getMovies(sort)).thenReturn(movies)
-        val movieEntities = viewModel.getMovies(sort).value?.data
+        val resultMovies = viewModel.getMovies(sort).value?.data
         verify(repository).getMovies(sort)
-        assertNotNull(movieEntities)
-        assertEquals(2, movieEntities?.size)
+        assertNotNull(resultMovies)
+        assertEquals(2, resultMovies?.size)
 
         viewModel.getMovies(sort).observeForever(moviesObserver)
         verify(moviesObserver).onChanged(dummyMovies)
@@ -74,10 +74,10 @@ class HomeViewModelTest {
         tvShows.value = dummyTvShows
 
         `when`(repository.getTvShows(sort)).thenReturn(tvShows)
-        val tvShowEntities = viewModel.getTvShows(sort).value?.data
+        val resultTvShows = viewModel.getTvShows(sort).value?.data
         verify(repository).getTvShows(sort)
-        assertNotNull(tvShowEntities)
-        assertEquals(2, tvShowEntities?.size)
+        assertNotNull(resultTvShows)
+        assertEquals(2, resultTvShows?.size)
 
         viewModel.getTvShows(sort).observeForever(tvShowsObserver)
         verify(tvShowsObserver).onChanged(dummyTvShows)
