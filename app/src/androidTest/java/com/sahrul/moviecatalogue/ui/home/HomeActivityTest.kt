@@ -1,23 +1,23 @@
 package com.sahrul.moviecatalogue.ui.home
 
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
+import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
+import com.adevinta.android.barista.interaction.BaristaListInteractions.scrollListToPosition
 import com.sahrul.moviecatalogue.R
 import com.sahrul.moviecatalogue.utils.EspressoIdlingResource
 import org.hamcrest.Matcher
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-
 
 class HomeActivityTest {
 
@@ -29,40 +29,32 @@ class HomeActivityTest {
 
     @Test
     fun loadMovies() {
-        onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
-        onView((withId(R.id.rvMovie))).perform(
-            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                19
-            )
-        )
+        assertDisplayed(R.id.rvMovie)
+        scrollListToPosition(R.id.rvMovie, 19)
     }
 
     @Test
     fun loadTvShows() {
-        onView(withText(R.string.tv_show)).perform(click())
-        onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
-        onView((withId(R.id.rvTvShow))).perform(
-            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                19
-            )
-        )
+        clickOn(R.string.tv_show)
+        assertDisplayed(R.id.rvTvShow)
+        scrollListToPosition(R.id.rvTvShow, 19)
     }
 
     @Test
-    fun emptyMovie() {
+    fun errorMovie() {
         onView(withId(R.id.rvMovie)).perform(setVisibility(false))
-        onView(withId(R.id.animDataEmpty)).perform(setVisibility(true))
-        onView(withId(R.id.rvMovie)).check(matches(withEffectiveVisibility(Visibility.GONE)))
-        onView(withId(R.id.animDataEmpty)).check(matches(isDisplayed()))
+        onView(withId(R.id.animError)).perform(setVisibility(true))
+        assertNotDisplayed(R.id.rvMovie)
+        assertDisplayed(R.id.animError)
     }
 
     @Test
-    fun emptyTvShow() {
-        onView(withText(R.string.tv_show)).perform(click())
+    fun errorTvShow() {
+        clickOn(R.string.tv_show)
         onView(withId(R.id.rvTvShow)).perform(setVisibility(false))
-        onView(withId(R.id.animDataEmpty)).perform(setVisibility(true))
-        onView(withId(R.id.rvTvShow)).check(matches(withEffectiveVisibility(Visibility.GONE)))
-        onView(withId(R.id.animDataEmpty)).check(matches(isDisplayed()))
+        onView(withId(R.id.animError)).perform(setVisibility(true))
+        assertNotDisplayed(R.id.rvTvShow)
+        assertDisplayed(R.id.animError)
     }
 
     @After
