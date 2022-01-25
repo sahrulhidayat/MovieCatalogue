@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_sort</item>
+    </style>
+
+</resources>
