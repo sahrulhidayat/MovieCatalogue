@@ -20,7 +20,7 @@ ext {
     roomVersion = '2.4.1'
     testVersion = "1.4.0"
     espressoVersion = "3.4.0"
-    mockitoVersion = "3.6.0"
+    mockitoVersion = "4.1.0"
 }
 
 task clean(type: Delete) {
