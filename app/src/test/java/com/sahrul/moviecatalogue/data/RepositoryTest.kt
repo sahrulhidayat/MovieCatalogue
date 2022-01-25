@@ -23,9 +23,6 @@ import org.mockito.Mockito.mock
 
 class RepositoryTest {
 
-    @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
-
     private val sort = SortUtils.NEWEST
     private val remote = mock(RemoteDataSource::class.java)
     private val local = mock(LocalDataSource::class.java)
@@ -37,6 +34,9 @@ class RepositoryTest {
     private val tvShowsResponse = DummyTvShows.generateRemoteDummyTvShows()
     private val tvShowDetailsResponse = DummyTvShows.generateRemoteDummyTvShowDetails()
     private val tvShowId = tvShowsResponse[0].id
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Test
     fun getMovies() {
@@ -58,10 +58,8 @@ class RepositoryTest {
         dummyMovie.value = DummyMovies.generateDummyMovies()[0]
 
         `when`(local.getMovieDetails(movieId)).thenReturn(dummyMovie)
-        val movieDetailsEntity =
-            LiveDataTestUtil.getValue(repository.getMovieDetails(movieId)).data
-
-        verify(remote).getMovieDetails(eq(movieId))
+        val movieDetailsEntity = LiveDataTestUtil.getValue(repository.getMovieDetails(movieId)).data
+        verify(local).getMovieDetails(eq(movieId))
         assertNotNull(movieDetailsEntity)
         if (movieDetailsEntity != null) {
             assertEquals(movieDetailsResponse.id, movieDetailsEntity.id)
@@ -69,7 +67,10 @@ class RepositoryTest {
             assertEquals(movieDetailsResponse.title, movieDetailsEntity.title)
             assertEquals(movieDetailsResponse.overview, movieDetailsEntity.overview)
             assertEquals(movieDetailsResponse.releaseDate, movieDetailsEntity.release)
-            assertEquals(movieDetailsResponse.voteAverage, movieDetailsEntity.ratings)
+            assertEquals(
+                movieDetailsResponse.voteAverage.toString(),
+                movieDetailsEntity.ratings.toString()
+            )
             assertEquals(
                 movieCategoryFormatter(movieDetailsResponse.genres),
                 movieDetailsEntity.category
@@ -102,7 +103,7 @@ class RepositoryTest {
 
         `when`(local.getTvShowDetails(tvShowId)).thenReturn(dummyTvShow)
         val tvShowEntity = LiveDataTestUtil.getValue(repository.getTvShowDetails(tvShowId)).data
-        verify(remote).getTvShowDetails(eq(tvShowId))
+        verify(local).getTvShowDetails(eq(tvShowId))
         assertNotNull(tvShowEntity)
         if (tvShowEntity != null) {
             assertEquals(tvShowDetailsResponse.id, tvShowEntity.id)
@@ -110,7 +111,10 @@ class RepositoryTest {
             assertEquals(tvShowDetailsResponse.title, tvShowEntity.title)
             assertEquals(tvShowDetailsResponse.overview, tvShowEntity.overview)
             assertEquals(tvShowDetailsResponse.releaseDate, tvShowEntity.release)
-            assertEquals(tvShowDetailsResponse.voteAverage, tvShowEntity.ratings)
+            assertEquals(
+                tvShowDetailsResponse.voteAverage.toString(),
+                tvShowEntity.ratings.toString()
+            )
             assertEquals(
                 tvShowCategoryFormatter(tvShowDetailsResponse.genres),
                 tvShowEntity.category
