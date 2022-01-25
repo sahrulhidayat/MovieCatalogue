@@ -11,7 +11,8 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 
     fun getMovieDetails(id: Int): LiveData<Resource<MovieEntity>> = repository.getMovieDetails(id)
 
-    fun getTvShowDetails(id: Int): LiveData<Resource<TvShowEntity>> = repository.getTvShowDetails(id)
+    fun getTvShowDetails(id: Int): LiveData<Resource<TvShowEntity>> =
+        repository.getTvShowDetails(id)
 
     fun setFavoriteMovie(movieEntity: MovieEntity) {
         val newState = !movieEntity.isFavorite

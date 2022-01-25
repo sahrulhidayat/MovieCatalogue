@@ -23,7 +23,7 @@ class RemoteDataSource {
                 response: Response<MoviesResponse>
             ) {
                 val result = response.body()?.results
-                if (result != null ) resultMovies.postValue(ApiResponse.success(result))
+                if (result != null) resultMovies.postValue(ApiResponse.success(result))
                 EspressoIdlingResource.decrement()
             }
 

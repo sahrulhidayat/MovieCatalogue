@@ -142,7 +142,7 @@ class FakeRepository(
                 localDataSource.getTvShowDetails(tvShowId)
 
             override fun shouldFetch(data: TvShowEntity?): Boolean =
-                data?.category== null
+                data?.category == null
 
             override fun createCall(): LiveData<ApiResponse<TvShowDetailsResponse>> =
                 remoteDataSource.getTvShowDetails(tvShowId)

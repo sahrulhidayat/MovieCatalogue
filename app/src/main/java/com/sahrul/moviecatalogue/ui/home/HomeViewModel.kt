@@ -10,8 +10,10 @@ import com.sahrul.moviecatalogue.vo.Resource
 
 class HomeViewModel(private val repository: Repository) : ViewModel() {
 
-    fun getMovies(sort: String): LiveData<Resource<PagedList<MovieEntity>>> = repository.getMovies(sort)
+    fun getMovies(sort: String): LiveData<Resource<PagedList<MovieEntity>>> =
+        repository.getMovies(sort)
 
-    fun getTvShows(sort: String): LiveData<Resource<PagedList<TvShowEntity>>> = repository.getTvShows(sort)
+    fun getTvShows(sort: String): LiveData<Resource<PagedList<TvShowEntity>>> =
+        repository.getTvShows(sort)
 
 }

@@ -14,6 +14,6 @@ object PagedListTestUtils {
             list[index]
         }
         `when`(pagedList.size).thenReturn(list.size)
-        return  pagedList
+        return pagedList
     }
 }

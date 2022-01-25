@@ -39,7 +39,8 @@ class LocalDataSource(private val mMovieDao: MovieDao, private val mTvShowDao: T
 
     fun getMovieDetails(movieId: Int): LiveData<MovieEntity> = mMovieDao.getMovieDetails(movieId)
 
-    fun getTvShowDetails(tvShowId: Int): LiveData<TvShowEntity> = mTvShowDao.getTvShowDetails(tvShowId)
+    fun getTvShowDetails(tvShowId: Int): LiveData<TvShowEntity> =
+        mTvShowDao.getTvShowDetails(tvShowId)
 
     fun insertMovies(movies: List<MovieEntity>) = mMovieDao.insertMovies(movies)
 
