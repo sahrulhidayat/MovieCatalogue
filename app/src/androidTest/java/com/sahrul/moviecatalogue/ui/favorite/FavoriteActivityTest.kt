@@ -2,7 +2,6 @@ package com.sahrul.moviecatalogue.ui.favorite
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.IdlingRegistry
-import com.adevinta.android.barista.assertion.BaristaImageViewAssertions.assertHasDrawable
 import com.adevinta.android.barista.assertion.BaristaListAssertions.assertListNotEmpty
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
@@ -28,16 +27,12 @@ class FavoriteActivityTest {
     @Test
     fun addAndDeleteFavoriteMovie() {
         clickListItem(R.id.rvMovie, 0)
-        assertHasDrawable(R.id.fabFavorite, R.drawable.ic_favorite_border)
         clickOn(R.id.fabFavorite)
-        assertHasDrawable(R.id.fabFavorite, R.drawable.ic_favorite)
         clickBack()
         clickMenu(R.id.favorite)
         assertListNotEmpty(R.id.rvFavoriteMovie)
         clickListItem(R.id.rvFavoriteMovie, 0)
-        assertHasDrawable(R.id.fabFavorite, R.drawable.ic_favorite)
         clickOn(R.id.fabFavorite)
-        assertHasDrawable(R.id.fabFavorite, R.drawable.ic_favorite_border)
         clickBack()
         assertNotDisplayed(R.id.rvFavoriteMovie)
         assertDisplayed(R.id.animDataEmpty)
@@ -47,17 +42,13 @@ class FavoriteActivityTest {
     fun addAndDeleteTvShow() {
         clickOn(R.string.tv_show)
         clickListItem(R.id.rvTvShow, 0)
-        assertHasDrawable(R.id.fabFavorite, R.drawable.ic_favorite_border)
         clickOn(R.id.fabFavorite)
-        assertHasDrawable(R.id.fabFavorite, R.drawable.ic_favorite)
         clickBack()
         clickMenu(R.id.favorite)
         clickOn(R.string.tv_show)
         assertListNotEmpty(R.id.rvFavoriteTvShow)
         clickListItem(R.id.rvFavoriteTvShow, 0)
-        assertHasDrawable(R.id.fabFavorite, R.drawable.ic_favorite)
         clickOn(R.id.fabFavorite)
-        assertHasDrawable(R.id.fabFavorite, R.drawable.ic_favorite_border)
         clickBack()
         assertNotDisplayed(R.id.rvFavoriteTvShow)
         assertDisplayed(R.id.animDataEmpty)
