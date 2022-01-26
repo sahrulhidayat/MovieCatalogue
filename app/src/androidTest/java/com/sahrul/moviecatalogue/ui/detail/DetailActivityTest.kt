@@ -1,13 +1,12 @@
 package com.sahrul.moviecatalogue.ui.detail
 
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers
+import com.adevinta.android.barista.assertion.BaristaContentDescriptionAssertions.assertContentDescription
+import com.adevinta.android.barista.assertion.BaristaImageViewAssertions.assertHasAnyDrawable
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
+import com.adevinta.android.barista.interaction.BaristaListInteractions.clickListItem
 import com.sahrul.moviecatalogue.R
 import com.sahrul.moviecatalogue.ui.home.HomeActivity
 import com.sahrul.moviecatalogue.utils.EspressoIdlingResource
@@ -25,93 +24,41 @@ class DetailActivityTest {
 
     @Test
     fun loadDetailMovie() {
-        Espresso.onView(ViewMatchers.withId(R.id.rvMovie)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                ViewActions.click()
-            )
-        )
-
-        Espresso.onView(ViewMatchers.withId(R.id.imgPoster)).apply {
-            check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-            check(ViewAssertions.matches(ViewMatchers.withContentDescription(R.string.image_poster)))
-        }
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvRatings))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvCategoryTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvCategory))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvReleaseDateTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvReleaseDate))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvDurationTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvDuration))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvOverviewTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvOverview))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        clickListItem(R.id.rvMovie, 0)
+        assertHasAnyDrawable(R.id.imgPoster)
+        assertContentDescription(R.id.imgPoster, R.string.image_poster)
+        assertDisplayed(R.id.tvTitle)
+        assertDisplayed(R.id.tvRatings)
+        assertDisplayed(R.id.tvCategoryTitle)
+        assertDisplayed(R.id.tvCategory)
+        assertDisplayed(R.id.tvReleaseDateTitle)
+        assertDisplayed(R.id.tvReleaseDate)
+        assertDisplayed(R.id.tvDurationTitle)
+        assertDisplayed(R.id.tvDuration)
+        assertDisplayed(R.id.tvOverviewTitle)
+        assertDisplayed(R.id.tvOverview)
+        assertDisplayed(R.id.fabFavorite)
+        assertHasAnyDrawable(R.id.fabFavorite)
     }
 
     @Test
     fun loadDetailTvShow() {
-        Espresso.onView(ViewMatchers.withText(R.string.tv_show)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.rvTvShow)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                ViewActions.click()
-            )
-        )
-
-        Espresso.onView(ViewMatchers.withId(R.id.imgPoster)).apply {
-            check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-            check(ViewAssertions.matches(ViewMatchers.withContentDescription(R.string.image_poster)))
-        }
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvRatings))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvCategoryTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvCategory))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvReleaseDateTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvReleaseDate))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvDurationTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvDuration))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvOverviewTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
-        Espresso.onView(ViewMatchers.withId(R.id.tvOverview))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        clickOn(R.string.tv_show)
+        clickListItem(R.id.rvTvShow, 0)
+        assertHasAnyDrawable(R.id.imgPoster)
+        assertContentDescription(R.id.imgPoster, R.string.image_poster)
+        assertDisplayed(R.id.tvTitle)
+        assertDisplayed(R.id.tvRatings)
+        assertDisplayed(R.id.tvCategoryTitle)
+        assertDisplayed(R.id.tvCategory)
+        assertDisplayed(R.id.tvReleaseDateTitle)
+        assertDisplayed(R.id.tvReleaseDate)
+        assertDisplayed(R.id.tvDurationTitle)
+        assertDisplayed(R.id.tvDuration)
+        assertDisplayed(R.id.tvOverviewTitle)
+        assertDisplayed(R.id.tvOverview)
+        assertDisplayed(R.id.fabFavorite)
+        assertHasAnyDrawable(R.id.fabFavorite)
     }
 
     @After
