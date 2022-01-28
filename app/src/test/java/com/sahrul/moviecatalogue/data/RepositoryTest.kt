@@ -121,4 +121,32 @@ class RepositoryTest {
             )
         }
     }
+
+    @Test
+    fun getFavoriteMovies() {
+        val favoriteMovies =
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
+        `when`(local.getFavoriteMovies()).thenReturn(favoriteMovies)
+        repository.getFavoriteMovies()
+
+        val favoriteMovieEntities =
+            Resource.success(PagedListTestUtils.mockPagedList(DummyMovies.generateDummyMovies()))
+        verify(local).getFavoriteMovies()
+        assertNotNull(favoriteMovieEntities.data)
+        assertEquals(moviesResponse.size.toLong(), favoriteMovieEntities.data?.size?.toLong())
+    }
+
+    @Test
+    fun getFavoriteTvShows() {
+        val favoriteTvShows =
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
+        `when`(local.getFavoriteTvShows()).thenReturn(favoriteTvShows)
+        repository.getFavoriteTvShows()
+
+        val favoriteTvShowEntities =
+            Resource.success(PagedListTestUtils.mockPagedList(DummyTvShows.generateDummyTvShows()))
+        verify(local).getFavoriteTvShows()
+        assertNotNull(favoriteTvShowEntities.data)
+        assertEquals(tvShowsResponse.size.toLong(), favoriteTvShowEntities.data?.size?.toLong())
+    }
 }
