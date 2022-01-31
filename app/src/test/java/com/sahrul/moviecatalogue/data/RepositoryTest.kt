@@ -58,28 +58,26 @@ class RepositoryTest {
         dummyMovie.value = DummyMovies.generateDummyMovies()[0]
 
         `when`(local.getMovieDetails(movieId)).thenReturn(dummyMovie)
-        val movieDetailsEntity = LiveDataTestUtil.getValue(repository.getMovieDetails(movieId)).data
+        val movieDetailsEntity = LiveDataTestUtil.getValue(repository.getMovieDetails(movieId))
         verify(local).getMovieDetails(eq(movieId))
         assertNotNull(movieDetailsEntity)
-        if (movieDetailsEntity != null) {
-            assertEquals(movieDetailsResponse.id, movieDetailsEntity.id)
-            assertEquals(movieDetailsResponse.posterPath, movieDetailsEntity.image)
-            assertEquals(movieDetailsResponse.title, movieDetailsEntity.title)
-            assertEquals(movieDetailsResponse.overview, movieDetailsEntity.overview)
-            assertEquals(movieDetailsResponse.releaseDate, movieDetailsEntity.release)
-            assertEquals(
-                movieDetailsResponse.voteAverage.toString(),
-                movieDetailsEntity.ratings.toString()
-            )
-            assertEquals(
-                movieCategoryFormatter(movieDetailsResponse.genres),
-                movieDetailsEntity.category
-            )
-            assertEquals(
-                durationFormatter(movieDetailsResponse.runtime),
-                movieDetailsEntity.duration
-            )
-        }
+        assertEquals(movieDetailsResponse.id, movieDetailsEntity.data?.id)
+        assertEquals(movieDetailsResponse.posterPath, movieDetailsEntity.data?.image)
+        assertEquals(movieDetailsResponse.title, movieDetailsEntity.data?.title)
+        assertEquals(movieDetailsResponse.overview, movieDetailsEntity.data?.overview)
+        assertEquals(movieDetailsResponse.releaseDate, movieDetailsEntity.data?.release)
+        assertEquals(
+            movieDetailsResponse.voteAverage.toString(),
+            movieDetailsEntity.data?.ratings.toString()
+        )
+        assertEquals(
+            movieCategoryFormatter(movieDetailsResponse.genres),
+            movieDetailsEntity.data?.category
+        )
+        assertEquals(
+            durationFormatter(movieDetailsResponse.runtime),
+            movieDetailsEntity.data?.duration
+        )
     }
 
     @Test
@@ -102,24 +100,22 @@ class RepositoryTest {
         dummyTvShow.value = DummyTvShows.generateDummyTvShows()[0]
 
         `when`(local.getTvShowDetails(tvShowId)).thenReturn(dummyTvShow)
-        val tvShowEntity = LiveDataTestUtil.getValue(repository.getTvShowDetails(tvShowId)).data
+        val tvShowEntity = LiveDataTestUtil.getValue(repository.getTvShowDetails(tvShowId))
         verify(local).getTvShowDetails(eq(tvShowId))
         assertNotNull(tvShowEntity)
-        if (tvShowEntity != null) {
-            assertEquals(tvShowDetailsResponse.id, tvShowEntity.id)
-            assertEquals(tvShowDetailsResponse.posterPath, tvShowEntity.image)
-            assertEquals(tvShowDetailsResponse.title, tvShowEntity.title)
-            assertEquals(tvShowDetailsResponse.overview, tvShowEntity.overview)
-            assertEquals(tvShowDetailsResponse.releaseDate, tvShowEntity.release)
-            assertEquals(
-                tvShowDetailsResponse.voteAverage.toString(),
-                tvShowEntity.ratings.toString()
-            )
-            assertEquals(
-                tvShowCategoryFormatter(tvShowDetailsResponse.genres),
-                tvShowEntity.category
-            )
-        }
+        assertEquals(tvShowDetailsResponse.id, tvShowEntity.data?.id)
+        assertEquals(tvShowDetailsResponse.posterPath, tvShowEntity.data?.image)
+        assertEquals(tvShowDetailsResponse.title, tvShowEntity.data?.title)
+        assertEquals(tvShowDetailsResponse.overview, tvShowEntity.data?.overview)
+        assertEquals(tvShowDetailsResponse.releaseDate, tvShowEntity.data?.release)
+        assertEquals(
+            tvShowDetailsResponse.voteAverage.toString(),
+            tvShowEntity.data?.ratings.toString()
+        )
+        assertEquals(
+            tvShowCategoryFormatter(tvShowDetailsResponse.genres),
+            tvShowEntity.data?.category
+        )
     }
 
     @Test

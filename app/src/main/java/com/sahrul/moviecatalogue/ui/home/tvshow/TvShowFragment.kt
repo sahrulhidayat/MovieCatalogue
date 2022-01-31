@@ -81,7 +81,7 @@ class TvShowFragment : Fragment() {
             Status.ERROR -> {
                 showLoading(false)
                 showErrorAnim(true)
-                Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT)
+                Toast.makeText(context, tvShow.message, Toast.LENGTH_SHORT)
                     .show()
             }
         }

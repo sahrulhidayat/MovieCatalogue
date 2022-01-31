@@ -80,7 +80,7 @@ class MovieFragment : Fragment() {
             Status.ERROR -> {
                 showLoading(false)
                 showErrorAnim(true)
-                Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, movies.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
