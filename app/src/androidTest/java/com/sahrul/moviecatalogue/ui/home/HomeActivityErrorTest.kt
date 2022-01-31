@@ -3,35 +3,41 @@ package com.sahrul.moviecatalogue.ui.home
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.platform.app.InstrumentationRegistry
-import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.adevinta.android.barista.interaction.BaristaClickInteractions
+import com.adevinta.android.barista.rule.cleardata.ClearDatabaseRule
 import com.sahrul.moviecatalogue.R
 import com.sahrul.moviecatalogue.utils.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
-class HomeErrorTest {
+class HomeActivityErrorTest {
+
+    @get:Rule
+    var clearDatabaseRule = ClearDatabaseRule()
 
     @Before
     fun setup() {
         InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc wifi disable")
         InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("svc data disable")
-        ActivityScenario.launch(HomeActivity::class.java)
         IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
+        ActivityScenario.launch(HomeActivity::class.java)
     }
 
     @Test
     fun errorMovie() {
-        BaristaVisibilityAssertions.assertNotDisplayed(R.id.rvMovie)
-        BaristaVisibilityAssertions.assertDisplayed(R.id.animError)
+        assertNotDisplayed(R.id.rvMovie)
+        assertDisplayed(R.id.animError)
     }
 
     @Test
     fun errorTvShow() {
         BaristaClickInteractions.clickOn(R.string.tv_show)
-        BaristaVisibilityAssertions.assertNotDisplayed(R.id.rvTvShow)
-        BaristaVisibilityAssertions.assertDisplayed(R.id.animError)
+        assertNotDisplayed(R.id.rvTvShow)
+        assertDisplayed(R.id.animError)
     }
 
     @After

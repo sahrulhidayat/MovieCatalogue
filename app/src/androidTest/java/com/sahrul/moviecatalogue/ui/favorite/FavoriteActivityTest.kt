@@ -20,8 +20,8 @@ class FavoriteActivityTest {
 
     @Before
     fun setup() {
-        ActivityScenario.launch(HomeActivity::class.java)
         IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
+        ActivityScenario.launch(HomeActivity::class.java)
     }
 
     @Test
