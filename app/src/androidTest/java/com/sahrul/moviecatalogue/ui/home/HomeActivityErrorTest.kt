@@ -5,7 +5,7 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.platform.app.InstrumentationRegistry
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
-import com.adevinta.android.barista.interaction.BaristaClickInteractions
+import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
 import com.adevinta.android.barista.rule.cleardata.ClearDatabaseRule
 import com.sahrul.moviecatalogue.R
 import com.sahrul.moviecatalogue.utils.EspressoIdlingResource
@@ -35,7 +35,7 @@ class HomeActivityErrorTest {
 
     @Test
     fun errorTvShow() {
-        BaristaClickInteractions.clickOn(R.string.tv_show)
+        clickOn(R.string.tv_show)
         assertNotDisplayed(R.id.rvTvShow)
         assertDisplayed(R.id.animError)
     }
