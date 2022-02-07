@@ -37,7 +37,7 @@ class FavoriteMovieFragment : Fragment() {
 
         if (activity != null) {
             showLoading(true)
-            viewModel.getFavoriteMovies().observe(requireActivity(), { favoriteMovies ->
+            viewModel.getFavoriteMovies().observe(requireActivity()) { favoriteMovies ->
                 showLoading(false)
                 listAdapter.submitList(favoriteMovies)
 
@@ -45,7 +45,7 @@ class FavoriteMovieFragment : Fragment() {
                     showEmptyAnim(true)
                 else
                     showEmptyAnim(false)
-            })
+            }
         }
     }
 

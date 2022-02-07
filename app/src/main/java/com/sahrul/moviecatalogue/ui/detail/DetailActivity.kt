@@ -38,7 +38,7 @@ class DetailActivity : AppCompatActivity() {
         when (intent.getIntExtra(EXTRA_TAB, 0)) {
             TAB_MOVIE -> {
                 supportActionBar?.title = resources.getText(R.string.movie_details)
-                viewModel.getMovieDetails(id).observe(this, { movie ->
+                viewModel.getMovieDetails(id).observe(this) { movie ->
                     populateMovie(movie)
                     binding?.fabFavorite?.setOnClickListener {
                         movie.data?.let { movie ->
@@ -47,11 +47,11 @@ class DetailActivity : AppCompatActivity() {
                             )
                         }
                     }
-                })
+                }
             }
             TAB_TV_SHOW -> {
                 supportActionBar?.title = resources.getText(R.string.tv_show_details)
-                viewModel.getTvShowDetails(id).observe(this, { tvShow ->
+                viewModel.getTvShowDetails(id).observe(this) { tvShow ->
                     populateTvShow(tvShow)
                     binding?.fabFavorite?.setOnClickListener {
                         tvShow.data?.let { tvShow ->
@@ -60,7 +60,7 @@ class DetailActivity : AppCompatActivity() {
                             )
                         }
                     }
-                })
+                }
             }
         }
     }

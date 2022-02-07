@@ -37,7 +37,7 @@ class FavoriteTvShowFragment : Fragment() {
 
         if (activity != null) {
             showLoading(true)
-            viewModel.getFavoriteTvShows().observe(requireActivity(), { favoriteTvShows ->
+            viewModel.getFavoriteTvShows().observe(requireActivity()) { favoriteTvShows ->
                 showLoading(false)
                 listAdapter.submitList(favoriteTvShows)
 
@@ -45,7 +45,7 @@ class FavoriteTvShowFragment : Fragment() {
                     showEmptyAnim(true)
                 else
                     showEmptyAnim(false)
-            })
+            }
         }
     }
 

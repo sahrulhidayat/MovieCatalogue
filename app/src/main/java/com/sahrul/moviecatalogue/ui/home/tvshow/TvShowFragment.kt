@@ -76,7 +76,6 @@ class TvShowFragment : Fragment() {
                 showLoading(false)
                 showErrorAnim(false)
                 listAdapter.submitList(tvShow.data)
-                listAdapter.notifyDataSetChanged()
             }
             Status.ERROR -> {
                 showLoading(false)

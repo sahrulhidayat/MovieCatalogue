@@ -75,7 +75,6 @@ class MovieFragment : Fragment() {
                 showLoading(false)
                 showErrorAnim(false)
                 listAdapter.submitList(movies.data)
-                listAdapter.notifyDataSetChanged()
             }
             Status.ERROR -> {
                 showLoading(false)
