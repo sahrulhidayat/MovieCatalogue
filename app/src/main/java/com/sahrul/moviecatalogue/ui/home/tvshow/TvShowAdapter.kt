@@ -39,7 +39,6 @@ class TvShowAdapter(private val tabId: Int) :
                 context.loadImage(BASE_IMAGE_URL + tvShow.image, imgPoster)
                 tvTitle.text = tvShow.title
                 tvReleaseDate.text = tvShow.release
-                tvOverview.text = tvShow.overview
                 tvRatings.text = tvShow.ratings.toString()
             }
 

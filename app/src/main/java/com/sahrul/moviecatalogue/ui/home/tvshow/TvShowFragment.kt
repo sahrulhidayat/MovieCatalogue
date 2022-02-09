@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.sahrul.moviecatalogue.R
 import com.sahrul.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.sahrul.moviecatalogue.databinding.FragmentTvShowBinding
@@ -42,7 +42,7 @@ class TvShowFragment : Fragment() {
 
         if (activity != null) {
             binding?.rvTvShow?.apply {
-                layoutManager = LinearLayoutManager(context)
+                layoutManager = GridLayoutManager(context, 3)
                 setHasFixedSize(true)
                 adapter = listAdapter
             }

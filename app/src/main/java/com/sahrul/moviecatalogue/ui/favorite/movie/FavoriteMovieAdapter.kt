@@ -39,7 +39,6 @@ class FavoriteMovieAdapter(private val tabId: Int) :
                 context.loadImage(BASE_IMAGE_URL + movie.image, imgPoster)
                 tvTitle.text = movie.title
                 tvReleaseDate.text = movie.release
-                tvOverview.text = movie.overview
                 tvRatings.text = movie.ratings.toString()
             }
 
