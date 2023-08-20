@@ -37,7 +37,7 @@ class Repository(
             }
 
             override fun shouldFetch(data: PagedList<MovieEntity>?): Boolean =
-                data == null || data.isEmpty()
+                data.isNullOrEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<ResultsMovie>>> =
                 remoteDataSource.getMovies()
@@ -70,7 +70,7 @@ class Repository(
                 localDataSource.getMovieDetails(movieId)
 
             override fun shouldFetch(data: MovieEntity?): Boolean =
-                data?.category == null
+                data?.category.isNullOrEmpty()
 
             override fun createCall(): LiveData<ApiResponse<MovieDetailsResponse>> =
                 remoteDataSource.getMovieDetails(movieId)
@@ -109,7 +109,7 @@ class Repository(
             }
 
             override fun shouldFetch(data: PagedList<TvShowEntity>?): Boolean =
-                data == null || data.isEmpty()
+                data.isNullOrEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<ResultsTvShow>>> =
                 remoteDataSource.getTvShows()
@@ -142,7 +142,7 @@ class Repository(
                 localDataSource.getTvShowDetails(tvShowId)
 
             override fun shouldFetch(data: TvShowEntity?): Boolean =
-                data?.category == null
+                data?.category.isNullOrEmpty()
 
             override fun createCall(): LiveData<ApiResponse<TvShowDetailsResponse>> =
                 remoteDataSource.getTvShowDetails(tvShowId)

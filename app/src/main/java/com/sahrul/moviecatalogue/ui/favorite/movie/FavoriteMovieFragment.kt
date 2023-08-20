@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.sahrul.moviecatalogue.databinding.FragmentFavoriteMovieBinding
 import com.sahrul.moviecatalogue.ui.favorite.FavoriteViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,14 +30,14 @@ class FavoriteMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.rvFavoriteMovie?.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(true)
             adapter = listAdapter
         }
 
         if (activity != null) {
             showLoading(true)
-            viewModel.getFavoriteMovies().observe(requireActivity(), { favoriteMovies ->
+            viewModel.getFavoriteMovies().observe(requireActivity()) { favoriteMovies ->
                 showLoading(false)
                 listAdapter.submitList(favoriteMovies)
 
@@ -45,7 +45,7 @@ class FavoriteMovieFragment : Fragment() {
                     showEmptyAnim(true)
                 else
                     showEmptyAnim(false)
-            })
+            }
         }
     }
 
