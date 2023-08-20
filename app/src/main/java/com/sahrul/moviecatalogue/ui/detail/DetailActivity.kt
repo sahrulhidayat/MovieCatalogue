@@ -13,6 +13,7 @@ import com.sahrul.moviecatalogue.ui.home.movie.MovieFragment.Companion.TAB_MOVIE
 import com.sahrul.moviecatalogue.ui.home.tvshow.TvShowFragment.Companion.TAB_TV_SHOW
 import com.sahrul.moviecatalogue.utils.Consts.BASE_IMAGE_URL
 import com.sahrul.moviecatalogue.utils.loadImage
+import com.sahrul.moviecatalogue.utils.roundOffDecimal
 import com.sahrul.moviecatalogue.vo.Resource
 import com.sahrul.moviecatalogue.vo.Status
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,7 +39,7 @@ class DetailActivity : AppCompatActivity() {
         when (intent.getIntExtra(EXTRA_TAB, 0)) {
             TAB_MOVIE -> {
                 supportActionBar?.title = resources.getText(R.string.movie_details)
-                viewModel.getMovieDetails(id).observe(this, { movie ->
+                viewModel.getMovieDetails(id).observe(this) { movie ->
                     populateMovie(movie)
                     binding?.fabFavorite?.setOnClickListener {
                         movie.data?.let { movie ->
@@ -47,11 +48,12 @@ class DetailActivity : AppCompatActivity() {
                             )
                         }
                     }
-                })
+                }
             }
+
             TAB_TV_SHOW -> {
                 supportActionBar?.title = resources.getText(R.string.tv_show_details)
-                viewModel.getTvShowDetails(id).observe(this, { tvShow ->
+                viewModel.getTvShowDetails(id).observe(this) { tvShow ->
                     populateTvShow(tvShow)
                     binding?.fabFavorite?.setOnClickListener {
                         tvShow.data?.let { tvShow ->
@@ -60,7 +62,7 @@ class DetailActivity : AppCompatActivity() {
                             )
                         }
                     }
-                })
+                }
             }
         }
     }
@@ -80,7 +82,9 @@ class DetailActivity : AppCompatActivity() {
                         with(movie.data) {
                             loadImage(BASE_IMAGE_URL + image, imgPoster)
                             tvTitle.text = title
-                            tvRatings.text = ratings.toString()
+                            tvRatings.text = if (ratings.toString().length > 3) {
+                                ratings.roundOffDecimal().toString()
+                            } else ratings.toString()
                             tvCategory.text = category
                             tvReleaseDate.text = release
                             tvOverview.text = overview
@@ -90,6 +94,7 @@ class DetailActivity : AppCompatActivity() {
                     setFavoriteButton(movie.data.isFavorite)
                 }
             }
+
             Status.ERROR -> {
                 showLoading(false)
                 Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
@@ -107,7 +112,9 @@ class DetailActivity : AppCompatActivity() {
                         with(tvShow.data) {
                             loadImage(BASE_IMAGE_URL + image, imgPoster)
                             tvTitle.text = title
-                            tvRatings.text = ratings.toString()
+                            tvRatings.text = if (ratings.toString().length > 3) {
+                                ratings.roundOffDecimal().toString()
+                            } else ratings.toString()
                             tvCategory.text = category
                             tvReleaseDate.text = release
                             tvOverview.text = overview
