@@ -15,6 +15,7 @@ import com.sahrul.moviecatalogue.ui.detail.DetailActivity.Companion.EXTRA_ID
 import com.sahrul.moviecatalogue.ui.detail.DetailActivity.Companion.EXTRA_TAB
 import com.sahrul.moviecatalogue.utils.Consts.BASE_IMAGE_URL
 import com.sahrul.moviecatalogue.utils.loadImage
+import com.sahrul.moviecatalogue.utils.roundOffDecimal
 
 class MovieAdapter(private val tabId: Int) :
     PagedListAdapter<MovieEntity, MovieAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -35,12 +36,13 @@ class MovieAdapter(private val tabId: Int) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieEntity) {
             val context = itemView.context
+            val rating = movie.ratings
 
             with(binding) {
                 context.loadImage(BASE_IMAGE_URL + movie.image, imgPoster)
-                tvTitle.text = movie.title
-                tvReleaseDate.text = movie.release
-                tvRatings.text = movie.ratings.toString()
+                tvRatings.text = if (rating.toString().length > 3) {
+                    rating.roundOffDecimal().toString()
+                } else rating.toString()
             }
 
             onClickItem(itemView, movie, context)
